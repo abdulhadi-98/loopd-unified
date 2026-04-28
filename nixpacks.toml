@@ -5,7 +5,7 @@ nixPkgs = ["nodejs_20"]
 cmds = ["npm install"]
 
 [phases.build]
-cmds = ["rm -rf .next/cache", "npm run build"]
+cmds = ["find .next/cache -mindepth 1 -delete 2>/dev/null; npm run build"]
 
 [start]
 cmd = "node server.js"
