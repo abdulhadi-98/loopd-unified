@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import Shell from '../../../../components/superadmin/Shell';
+import Shell from '../../../../../components/superadmin/Shell';
 
 export default function NewRestaurant() {
   const router = useRouter();

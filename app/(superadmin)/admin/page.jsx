@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Shell from '../../../../components/superadmin/Shell';
-import StatCard from '../../../../components/superadmin/StatCard';
+import Shell from '../../../components/superadmin/Shell';
+import StatCard from '../../../components/superadmin/StatCard';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend,
