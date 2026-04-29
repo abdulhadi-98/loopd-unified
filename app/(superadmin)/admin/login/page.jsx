@@ -18,7 +18,7 @@ export default function Login() {
       const { data } = await axios.post('/api/superadmin/login', { email, password });
       localStorage.setItem('saToken', data.token);
       localStorage.setItem('saAdmin', JSON.stringify(data.admin));
-      router.push('/dashboard');
+      router.push('/admin');
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
     } finally {
