@@ -7,6 +7,8 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# Ensure optional directories exist so runner COPY never fails
+RUN mkdir -p public passes
 RUN npm run build
 
 FROM node:20-alpine AS runner
@@ -18,9 +20,6 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/server.js ./server.js
 COPY --from=builder /app/lib ./lib
-
-# Copy optional directories only if they exist
-RUN mkdir -p ./public ./passes
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/passes ./passes
 
