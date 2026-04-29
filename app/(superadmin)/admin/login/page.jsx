@@ -31,7 +31,7 @@ export default function Login() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <span className="text-4xl font-black tracking-tight">
-            Loyalr <span className="text-violet-500">↑</span>
+            Loopd <span className="text-violet-500">↑</span>
           </span>
           <p className="text-slate-400 mt-1 text-sm">Superadmin Control Panel</p>
         </div>

@@ -9,7 +9,7 @@ const SuperAdmin = require('../lib/models/SuperAdmin');
 // ── Config — change these before running ────────────────────────────────────
 const SUPERADMIN = {
   name:     process.env.SEED_ADMIN_NAME     || 'Super Admin',
-  email:    process.env.SEED_ADMIN_EMAIL    || 'admin@loyalr.app',
+  email:    process.env.SEED_ADMIN_EMAIL    || 'admin@loopd.app',
   password: process.env.SEED_ADMIN_PASSWORD || 'ChangeMe123!',
 };
 

@@ -54,7 +54,7 @@ nextApp.prepare().then(async () => {
 
   // Start listening immediately so the reverse proxy doesn't get Bad Gateway
   const PORT = process.env.PORT || 3000;
-  httpServer.listen(PORT, '0.0.0.0', () => console.log(`Loyalr running on port ${PORT}`));
+  httpServer.listen(PORT, '0.0.0.0', () => console.log(`Loopd running on port ${PORT}`));
 
   // Connect to MongoDB after the server is already accepting connections
   mongoose.connect(process.env.MONGODB_URI)

@@ -28,7 +28,7 @@ export default function Sidebar() {
     <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col min-h-screen fixed top-0 left-0">
       <div className="px-6 py-5 border-b border-slate-800">
         <span className="text-xl font-black tracking-tight">
-          Loyalr <span className="text-violet-500">↑</span>
+          Loopd <span className="text-violet-500">↑</span>
         </span>
         <p className="text-xs text-slate-500 mt-0.5">Superadmin</p>
       </div>

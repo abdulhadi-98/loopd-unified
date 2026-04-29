@@ -43,7 +43,7 @@ function EnrollContent() {
         {restaurant?.logo_url && (
           <img src={restaurant.logo_url} alt="logo" className="w-24 h-24 rounded-2xl mb-4 object-cover" />
         )}
-        <h1 className="text-3xl font-bold mb-1">{restaurant?.name || 'Loyalr'}</h1>
+        <h1 className="text-3xl font-bold mb-1">{restaurant?.name || 'Loopd'}</h1>
         <p className="text-gray-500 mb-2">Earn rewards every visit</p>
         {restaurant && (
           <p className="text-sm text-gray-400 mb-8">

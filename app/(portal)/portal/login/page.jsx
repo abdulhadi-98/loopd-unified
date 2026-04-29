@@ -40,7 +40,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
-      <h1 className="text-3xl font-bold mb-2">Loyalr</h1>
+      <h1 className="text-3xl font-bold mb-2">Loopd</h1>
       <p className="text-gray-400 mb-8">Manager Dashboard</p>
       <div className="w-full max-w-sm bg-gray-900 rounded-2xl p-6">
         {step === 'phone' ? (
