@@ -61,10 +61,23 @@ nextApp.prepare().then(async () => {
     .then(async () => {
       console.log('MongoDB connected');
       await seedDefaultPlans();
+      await seedSuperAdmin();
       startChangeStreams(io);
     })
     .catch((err) => console.error('MongoDB connection error:', err.message));
 });
+
+async function seedSuperAdmin() {
+  const SuperAdmin = require('./lib/models/SuperAdmin');
+  const bcrypt = require('bcryptjs');
+  const email = process.env.SUPERADMIN_EMAIL || 'admin@loopd.app';
+  const password = process.env.SUPERADMIN_PASSWORD || 'Loopd@Admin123';
+  const exists = await SuperAdmin.findOne({ email });
+  if (exists) return;
+  const hashed = await bcrypt.hash(password, 10);
+  await SuperAdmin.create({ name: 'Super Admin', email, password: hashed });
+  console.log(`Superadmin created: ${email}`);
+}
 
 async function seedDefaultPlans() {
   const Plan = require('./lib/models/Plan');
