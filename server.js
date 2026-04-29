@@ -52,14 +52,18 @@ nextApp.prepare().then(async () => {
     handle(req, res, parsedUrl);
   });
 
-  await mongoose.connect(process.env.MONGODB_URI);
-  console.log('MongoDB connected');
-
-  await seedDefaultPlans();
-  startChangeStreams(io);
-
+  // Start listening immediately so the reverse proxy doesn't get Bad Gateway
   const PORT = process.env.PORT || 3000;
-  httpServer.listen(PORT, () => console.log(`Loyalr running on http://localhost:${PORT}`));
+  httpServer.listen(PORT, '0.0.0.0', () => console.log(`Loyalr running on port ${PORT}`));
+
+  // Connect to MongoDB after the server is already accepting connections
+  mongoose.connect(process.env.MONGODB_URI)
+    .then(async () => {
+      console.log('MongoDB connected');
+      await seedDefaultPlans();
+      startChangeStreams(io);
+    })
+    .catch((err) => console.error('MongoDB connection error:', err.message));
 });
 
 async function seedDefaultPlans() {
@@ -78,13 +82,18 @@ async function seedDefaultPlans() {
 }
 
 function startChangeStreams(io) {
-  const Transaction = require('./lib/models/Transaction');
-  const LoyaltyCard = require('./lib/models/LoyaltyCard');
-  Transaction.watch().on('change', (c) => {
-    if (c.operationType === 'insert') io.emit('transaction:new', c.fullDocument);
-  });
-  LoyaltyCard.watch().on('change', (c) => {
-    if (['insert', 'update'].includes(c.operationType))
-      io.emit('card:update', c.fullDocument || c.documentKey);
-  });
+  try {
+    const Transaction = require('./lib/models/Transaction');
+    const LoyaltyCard = require('./lib/models/LoyaltyCard');
+    Transaction.watch().on('change', (c) => {
+      if (c.operationType === 'insert') io.emit('transaction:new', c.fullDocument);
+    });
+    LoyaltyCard.watch().on('change', (c) => {
+      if (['insert', 'update'].includes(c.operationType))
+        io.emit('card:update', c.fullDocument || c.documentKey);
+    });
+    console.log('Change streams active');
+  } catch (err) {
+    console.warn('Change streams unavailable (replica set required):', err.message);
+  }
 }
