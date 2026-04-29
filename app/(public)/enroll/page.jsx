@@ -1,10 +1,10 @@
 'use client';
-export const dynamic = 'force-dynamic';
+import { Suspense } from 'react';
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import axios from 'axios';
 
-export default function Home() {
+function EnrollContent() {
   const searchParams = useSearchParams();
   const restaurantId = searchParams.get('r');
   const router = useRouter();
@@ -99,4 +99,8 @@ export default function Home() {
       </form>
     </div>
   );
+}
+
+export default function EnrollPage() {
+  return <Suspense><EnrollContent /></Suspense>;
 }

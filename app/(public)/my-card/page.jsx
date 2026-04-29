@@ -1,5 +1,5 @@
 'use client';
-export const dynamic = 'force-dynamic';
+import { Suspense } from 'react';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import PointsBar from '../../../components/public/PointsBar';
 import TierBadge from '../../../components/public/TierBadge';
 import TransactionList from '../../../components/public/TransactionList';
 
-export default function MyCard() {
+function MyCardContent() {
   const searchParams = useSearchParams();
   const restaurantId = searchParams.get('r');
   const [data, setData] = useState(null);
@@ -70,4 +70,8 @@ export default function MyCard() {
       </div>
     </div>
   );
+}
+
+export default function MyCardPage() {
+  return <Suspense><MyCardContent /></Suspense>;
 }

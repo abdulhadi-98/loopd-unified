@@ -1,10 +1,10 @@
 'use client';
-export const dynamic = 'force-dynamic';
+import { Suspense } from 'react';
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import axios from 'axios';
 
-export default function Login() {
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const restaurantId = searchParams.get('r');
@@ -81,4 +81,8 @@ export default function Login() {
       )}
     </div>
   );
+}
+
+export default function LoginPage() {
+  return <Suspense><LoginContent /></Suspense>;
 }

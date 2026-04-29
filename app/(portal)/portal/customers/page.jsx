@@ -1,5 +1,5 @@
 'use client';
-export const dynamic = 'force-dynamic';
+import { Suspense } from 'react';
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 const SEGMENTS = ['all', 'active', 'at_risk', 'vip'];
 
-export default function Customers() {
+function CustomersContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [segment, setSegment] = useState(searchParams.get('segment') || 'all');
@@ -77,4 +77,8 @@ export default function Customers() {
       )}
     </div>
   );
+}
+
+export default function CustomersPage() {
+  return <Suspense><CustomersContent /></Suspense>;
 }
